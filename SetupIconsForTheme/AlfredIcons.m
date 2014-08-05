@@ -2,7 +2,8 @@
 //  AlfredIcons.m
 //  SetupIconsForTheme
 //
-//  Created by Clinton Strong on 3/4/14.
+//  Barely modified by Shawn Patrick Rice from code that
+//  was created by Clinton Strong on 3/4/14.
 //  Copyright (c) 2014 Clinton Strong. All rights reserved.
 //
 
@@ -107,36 +108,12 @@
     return ![self isThemeDark];
 }
 
--(NSArray *)imagesInCurrentDirectory
-{
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSArray *files = [fm contentsOfDirectoryAtPath:[fm currentDirectoryPath] error:nil];
-    NSPredicate *filter = [NSPredicate predicateWithFormat:@"self ENDSWITH '.png'"];
-    return [files filteredArrayUsingPredicate:filter];
-}
-
 -(void)swapFileNamesBasedOnCurrentTheme
 {
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSArray *images = [self imagesInCurrentDirectory];
-    NSString *lightPath;
-    NSString *darkPath;
-    NSString *pathWithoutExtension;
-    
-    for (NSString *imagePath in images) {
-        pathWithoutExtension = [[imagePath componentsSeparatedByString:@"."] objectAtIndex:0];
-        // -light.png denotes a light icon, designed for dark themes
-        lightPath = [pathWithoutExtension stringByAppendingString:@"-light.png"];
-        // -dark.png denotes a dark icon, designed for light themes
-        darkPath = [pathWithoutExtension stringByAppendingString:@"-dark.png"];
-        
-        if ([fm fileExistsAtPath:lightPath] && [self isThemeDark]) {
-            [fm moveItemAtPath:imagePath toPath:darkPath error:nil];
-            [fm moveItemAtPath:lightPath toPath:imagePath error:nil];
-        } else if ([fm fileExistsAtPath:darkPath] && [self isThemeLight]) {
-            [fm moveItemAtPath:imagePath toPath:lightPath error:nil];
-            [fm moveItemAtPath:darkPath toPath:imagePath error:nil];
-        }
+    if ( [self isThemeDark] ) {
+        printf("dark");
+    } else {
+        printf("light");
     }
 }
 

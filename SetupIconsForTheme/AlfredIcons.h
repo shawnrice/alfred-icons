@@ -23,7 +23,7 @@
 -(NSColor *)backgroundColor;
 -(BOOL)isThemeDark;
 -(BOOL)isThemeLight;
--(NSArray *)imagesInCurrentDirectory;
+//-(NSArray *)imagesInCurrentDirectory;
 -(void)swapFileNamesBasedOnCurrentTheme;
 
 @end
