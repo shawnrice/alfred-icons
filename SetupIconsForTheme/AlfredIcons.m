@@ -110,11 +110,19 @@
 
 -(void)swapFileNamesBasedOnCurrentTheme
 {
-    if ( [self isThemeDark] ) {
-        printf("dark");
-    } else {
-        printf("light");
-    }
+    
+    NSColor *color = [NSUnarchiver unarchiveObjectWithData:[[self currentTheme] objectForKey:@"background"]];
+    const CGFloat *components = CGColorGetComponents(color.CGColor);
+    CGFloat r = components[0];
+    CGFloat g = components[1];
+    CGFloat b = components[2];
+    NSString *hexString=[NSString stringWithFormat:@"%02X%02X%02X\n", (int)(r * 255), (int)(g * 255), (int)(b * 255)];
+    NSString *message=[[self installedThemes] objectForKey:[self nameOfCurrentTheme]];
+    
+    NSLog(@"%@", message);
+    
+    [hexString writeToFile:@"/dev/stdout" atomically:NO encoding:NSUTF8StringEncoding error:nil];
+//    [message writeToFile:@"/dev/stdout" atomically:NO encoding:NSUTF8StringEncoding error:nil];
 }
 
 @end
